@@ -296,3 +296,118 @@ class Rational:
         str=str+ '/'
         str=str+  '%d' % self._d
         return str 
+    
+    
+
+##Classes
+
+class Person: #type
+    def __init__(self, money, happiness): #self the object
+    #mon hap attributes of the object
+        self.money=money
+        self.happiness=happiness
+    #everything that follows are functions=methods which are called 
+    #by puting a dot after the variable of interest
+        
+    def work(self):
+        """working increases money but decreasses happiness"""
+        self.money=self.money + 10
+        self.happiness = self.happiness - 5
+        #self.happiness -= 5
+     
+    def consume(self):
+        """Condumption decreasses money, increasses happiness"""
+        self.happiness += 7
+        self.money -= 8
+    def __repr__(self):
+        return (f"A person with money = {self.money}"
+                f"and hapiness = {self.happiness}")
+    
+    def interact(self, other):
+        """Interact with another person; increases happiness for both"""
+        self.happiness += 1
+        other.happiness += 1
+    
+ana=Person(100, 10)
+ana.work()
+ana.consume()
+print("ana's money: ", ana.money)
+print(f"ana: money ={ana.money},"
+      f"happiness = {ana.happiness}")
+print(ana)
+
+bob = Person (500, 5)
+bob.interact(ana)
+print('After interaction:')
+print(ana)
+print(bob)
+#ana.money
+#ana.happiness
+
+###input output
+result= input('give me a number')
+result_as_int= int(result)
+
+my_file=open('hi,txt','w') #open a file to write to it
+my_file.write('Oh hello!') #command to write to it
+my_file.close() #need to close the file after finishing with it
+
+file_for_reading = open('hi.txt','r')
+text_in_file = file_for_reading.read() 
+#print(text_in_file)
+file_for_reading.close()
+
+##open the file and gives the object to a variable
+with open ('hi.txt','r') as file_for_reading:
+        text_in_file=file_for_reading.read()
+        
+##read the file line by line
+with open ('hi.txt','r') as file_for_reading:
+       for line in file_for_reading:
+           #print('I read a line it is', line)
+
+#split the words 
+ #with open ('hi.txt','r') as file_for_reading:
+  #      for line in file_for_reading:
+   #         words=line.split()
+    #        print('I read a line it is', repr(words))
+           
+##construct persons
+#with open ('hi.txt','r') as file_for_reading:
+ #   for line in file_for_reading:
+  #      words=line.split()
+    #    money=int(words[0])
+     #   happiness=int(words[1])
+      #  person = Person(money, happiness)
+       # print('I read a line it is', repr(words))
+
+ def read_persons_from_fie(filename):
+        """Return a list of Person. File shoild be a text file with 
+        two numbers separated by space on each  line."""
+        person=[]
+        with open (filename,'r') as file_for_reading:
+           for line in file_for_reading:
+               words=line.split()
+               money=int(words[0])
+               happiness=int(words[1])
+               person = Person(money, happiness)
+               persons.append(person)
+           return persons
+       
+# Read data from file and let everybody work
+person_list = read_persons_from_file('hi.txt')
+for person in person_list:
+    person.work()
+    
+    
+##pandas and numpy can be also used for reading files
+
+def write_persons_for_file(filename, persons):
+    """Save a list of Person to file so that it can be read 
+    by read_persons_from_file."""
+    with open(filename, 'w') as file_for_writing:
+        for person in persons:
+          s = f'{person.money}{person.happiness}\n'
+          file_for_writing.write(s)
+          
+write_persons_to_file('workieworkie.txt', person_list)
